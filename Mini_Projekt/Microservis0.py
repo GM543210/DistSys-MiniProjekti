@@ -11,13 +11,13 @@ global DATABASE
 DATABASE = "Mini_Projekt/DB/Database.db"
 
 def dissolve_data(object):
-    tup = (
+    elem = (
         object["repo_name"].split("/")[0],
         "https://github.com/" + object["repo_name"],
         object["path"].split("/")[-1],
         object["content"]
     )
-    return tup
+    return elem
         
 async def inspect_DB():
     async with aiosqlite.connect(DATABASE) as database:
@@ -55,10 +55,10 @@ async def get_data_db(request):
                                  "contents_of_file": []
                                 }
         }
-        limit = 100
 
-        offset = request.query["offset"]
+        limit = 100
         
+        offset = request.query["offset"]
         async with aiosqlite.connect(DATABASE) as database:
                 async with database.execute(f"Select * FROM e_ucenje LIMIT {limit} OFFSET {offset}") as cursor:
                     async for seq in cursor:
@@ -67,18 +67,18 @@ async def get_data_db(request):
                         response["data"]["file_naming"].append(seq[3])
                         response["data"]["contents_of_file"].append(seq[4])
                         await database.commit()
-                        print(f"i: {offset}")
+
         return web.json_response(response , status = 200)
     
     except Exception as ex:
         return web.json_response({"Error":str(ex)})
-
 asyncio.run(inspect_DB())
 
 
 app = web.Application()
 app.router.add_routes(routes)
-web.run_app(app, port = 8080)
+#web.run_app(app, port = 8080)
+web.run_app(app)
 
 """
 0. Fake E-ucenje API microservis (M0). 

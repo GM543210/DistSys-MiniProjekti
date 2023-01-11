@@ -5,21 +5,21 @@ from aiohttp import web
 routes = web.RouteTableDef()
 
 async def get_stotku(session, offset):
-    result = await session.get(f"http://0.0.0.0:8080/getDataDB?offset={offset}")
+    result = await session.get(f"http://localhost:8080/getDataDB?offset={offset}")
     return await result.json()
 
 @routes.get("/getData")
 async def get_data(request):
     try:
-        tasks = []
+        task = []
         async with aiohttp.ClientSession() as session:
             for a in range(0, 10001, 100):
                 dz = await get_stotku(session, a)
 
-                tasks.append(asyncio.create_task(session.post("http://0.0.0.0:8082/WT", json = dz)))
-                tasks.append(asyncio.create_task(session.post("http://0.0.0.0:8083/WT", json = dz)))
+                task.append(asyncio.create_task(session.post("http://localhost:8082/WTW", json = dz)))
+                task.append(asyncio.create_task(session.post("http://localhost:8083/WTD", json = dz)))
 
-                resp = await asyncio.gather(*tasks)
+                resp = await asyncio.gather(*task)
                 data = [await data.json() for data in resp]
                 
         return web.json_response({ "service_id": 1, "data": data }, status = 200)
