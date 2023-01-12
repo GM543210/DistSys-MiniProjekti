@@ -10,12 +10,12 @@ routes = web.RouteTableDef()
 global DATABASE
 DATABASE = "Mini_Projekt/DB/Database.db"
 
-def dissolve_data(object):
+def dissolve_data(objct):
     elem = (
-        object["repo_name"].split("/")[0],
-        "https://github.com/" + object["repo_name"],
-        object["path"].split("/")[-1],
-        object["content"]
+        objct["repo_name"].split("/")[0],
+        "https://github.com/" + objct["repo_name"],
+        objct["path"].split("/")[-1],
+        objct["content"]
     )
     return elem
         

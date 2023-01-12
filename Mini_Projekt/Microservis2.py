@@ -37,7 +37,6 @@ web.run_app(app, port = 8082)
 
 
 
-
 """
 2. WT microservis uzima dictionary. Uzima samo redove gdje username
 pocinje na w. Prosljeduje kod 4. microservisu.

@@ -9,7 +9,7 @@ GATHERED_DATA = []
 
 async def create_files():
     for elem in GATHERED_DATA:
-        async with aiofiles.open(f"MiniProjekt1/ProjectFiles/{elem['file_naming']}", mode = "w", encoding = "utf-8") as file:
+        async with aiofiles.open(f"Mini_Projekt/ProjectFiles/{elem['file_naming']}", mode = "w", encoding = "utf-8") as file:
             await file.write(elem["content"])
 
 
@@ -25,7 +25,6 @@ async def gather_data(request):
 app = web.Application()
 app.router.add_routes(routes)
 web.run_app(app, port = 8084)
-
 
 
 """
